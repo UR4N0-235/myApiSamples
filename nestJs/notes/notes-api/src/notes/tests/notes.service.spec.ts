@@ -6,7 +6,7 @@ import { createMock } from '@golevelup/ts-jest';
 import { NotesService } from '../notes.service';
 import { NoteDoc, Note } from '../note.model';
 
-const mockNote = (id = 'some id', note = 'Note #1'): Note => ({
+const mockNote = ({ id = 'some id', note = 'Note #1' }): Note => ({
   id,
   note,
 });
@@ -68,7 +68,11 @@ describe('NotesService', () => {
         }),
       );
       const newNote = await service.create({ body: 'Note #1' });
-      expect(newNote).toEqual(mockNote);
+      const mokedNote = mockNote({ id: 'some id' });
+      expect(newNote).toEqual({
+        _id: mokedNote.id,
+        note: mokedNote.note,
+      });
     });
     it('should be return all notes', async () => {
       jest.spyOn(model, 'find').mockReturnValue({
@@ -97,7 +101,9 @@ describe('NotesService', () => {
         id: 'lasagna',
         body: 'Garfield like',
       });
-      expect(updatedCat).toEqual(mockNote('lasagna', 'Garfield like'));
+      expect(updatedCat).toEqual(
+        mockNote({ id: 'lasagna', note: 'Garfield like' }),
+      );
     });
   });
   it('should delete a note successfully', async () => {
