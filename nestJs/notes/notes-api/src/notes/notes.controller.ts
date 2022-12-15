@@ -6,9 +6,9 @@ import { Note } from './note.model';
 @Controller('notes')
 export class NotesController {
   constructor(private readonly notesService: NotesService) {}
-
   @Post()
   async createNewNote(@Body() createNoteDto: CreateNoteDto) {
+    console.log("ue");
     return this.notesService.create(createNoteDto);
   }
 

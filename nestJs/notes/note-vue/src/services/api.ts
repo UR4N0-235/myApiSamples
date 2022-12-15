@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://127.0.1.1:3000",
+  baseURL: "https://ur4n0-235-glowing-computing-machine-r94jw46qr394v-3000.preview.app.github.dev/",
 });
 
 export default api;

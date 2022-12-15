@@ -8,42 +8,71 @@ import api from "@/services/api";
 export default {
   data() {
     return {
+      newNote: ``,
       notes: [],
     };
   },
   methods: {
     addNote() {
-      console.log("add note");
+      console.log("add note " + this.newNote);
+      api.post("/notes", {
+        body: this.newNote,
+      }).then((response) => {
+        console.log("response is " + JSON.stringify(response, null, 4));
+      });
+    },
+    getNotes() {
+      api.get("/notes").then((response) => {
+        console.log("notes is " + JSON.stringify(response, null, 4));
+        this.notes = response.data;
+      });
     },
   },
   mounted() {
-    api.get("/").then((response) => {
-      console.log(response);
-    });
+    this.getNotes();
   },
 };
 </script>
 
 <template>
   <main>
-    <span>{{ notes }}</span>
-    <NoteItem />
+    <div class="notesContainer">
+      <div class="noteItem" v-for="note in notes">
+        <NoteItem />
+      </div>
+    </div>
+    <div class="noteInputContainer">
+      <div>
+        <label for="note">Insira uma notinha</label>
+        <input name="note" type="text" v-model="newNote" />
+        <button class="add" @click="addNote">+</button>
+      </div>
+    </div>
   </main>
+
   <footer>
-    <button @click="addNote">Add note</button>
+    <button class="add" @click="addNote">+</button>
   </footer>
 </template>
 
 <style>
-.main {
+main {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: calc(100vh -120px);
 }
 footer {
   position: relative;
-  bottom: 0;
   display: flex;
   justify-content: flex-end;
+  height: 60px;
+  width: 100vw;
 }
 footer button {
   color: green;
+  width: 100px;
+  height: 100px;
+  font-size: 30px;
 }
 </style>

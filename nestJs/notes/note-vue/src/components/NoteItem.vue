@@ -2,6 +2,11 @@
 
 <script lang="ts">
 export default {
+  props: {
+    note: {
+      note: String,
+    },
+  },
   data() {
     return {
       latest: true,
@@ -15,6 +20,9 @@ export default {
       this.latest = true;
     },
   },
+  mounted(){
+    console.log("NOTE INSEREDEEEE " + this.note.note);
+  }
 };
 </script>
 
@@ -32,4 +40,8 @@ export default {
   </div>
 </template>
 
-<style></style>
+<style>
+.noteItem {
+  border-color: red;
+}
+</style>
