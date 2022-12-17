@@ -7,7 +7,7 @@ import HomeView from "./views/HomeView.vue";
   <HomeView />
 </template>
 
-<style scoped>
+<style>
 @import url("./assets/base.css");
 /* header {
   line-height: 1.5;
